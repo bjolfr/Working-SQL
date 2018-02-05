@@ -1,10 +1,10 @@
 declare @key INT = NULL;
-declare prop_cursor CURSOR FOR 
+declare _cursor CURSOR FOR 
 	select GO_KEY from GrntProp 
 	where GO_ADDUKEY = 12001946 order by GO_KEY desc;
 
-open prop_cursor;
-fetch next from prop_cursor into @key;
+open _cursor;
+fetch next from _cursor into @key;
 
 while @@FETCH_STATUS = 0
 begin
@@ -17,8 +17,8 @@ begin
 	if exists(select ng_key from NOTE_GR where NG_GOKEY = @key)
 		delete from NOTE_GR where NG_GOKEY = @key;
 	delete from GrntProp where GO_KEY = @key;
-	fetch next from prop_cursor into @key;
+	fetch next from _cursor into @key;
 end;
 
-close prop_cursor;
-deallocate prop_cursor;
+close _cursor;
+deallocate _cursor;

@@ -18,3 +18,5 @@ begin
 	fetch next from _cursor into @key;
 end;
 
+close _cursor;
+deallocate _cursor;
